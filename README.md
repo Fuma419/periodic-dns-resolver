@@ -17,7 +17,7 @@ cd /opt/cardano/cnode/scripts
 ```
 3. Download the files and make them executeable
 ```
-wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.sh
+wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.sh
 
 chmod +x dns-ipcheck.sh
 ```
@@ -38,8 +38,8 @@ cat dns_<your-nodes-dns-address>*
 7. Create a Service which calls the script every minute
 ```
 cd /etc/systemd/system
-sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns-ipcheck.service
-sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns-ipcheck.timer
+sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/service/dns-ipcheck.service
+sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/service/dns-ipcheck.timer
 ```
 If you customized the paths you need to change them in dns-ipcheck.service as well
 Then enable the Service
