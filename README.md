@@ -17,21 +17,21 @@ cd /opt/cardano/cnode/scripts
 ```
 3. Download the files and make them executeable
 ```
-wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.py
+wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.sh
 
-chmod +x dns-ipcheck.py
+chmod +x dns-ipcheck.sh
 ```
 
-4. Customize the variables in dns-ipcheck.py
+4. Customize the variables in dns-ipcheck.sh
 ```
 dns_address[your-node1-location]=<your-nodes-dns-address>
 dns_port=<your-nodes-dns-port>
 ```
 
-6. Validate function of dns-ipcheck.py
+6. Validate function of dns-ipcheck.sh
 ```
 sudo /usr/sbin/ufw allow proto tcp from 192.168.68.101 to any port 6000 comment "<your-nodes-dns-address>"
-sudo ./dns-ipcheck.py
+sudo ./dns-ipcheck.sh
 cat dns_<your-nodes-dns-address>*
 ```
 

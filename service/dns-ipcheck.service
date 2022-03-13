@@ -6,7 +6,7 @@ Wants=dns-ipcheck.timer
 
 [Service]
 Type=oneshot
-ExecStart=/opt/cardano/cnode/scripts/dns-ipcheck.py
+ExecStart=/opt/cardano/cnode/scripts/dns-ipcheck.sh
 
 [Install]
 WantedBy=multi-user.target
