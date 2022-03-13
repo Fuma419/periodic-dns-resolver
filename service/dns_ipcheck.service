@@ -1,7 +1,7 @@
-# /etc/systemd/system/simple-cardano-failover.service
+# /etc/systemd/system/dns_ipcheck.service
 
 [Unit]
-Description=Simple Cardano Failover Service
+Description=DNS firewall servicer
 Wants=dns_ipcheck.timer
 
 [Service]

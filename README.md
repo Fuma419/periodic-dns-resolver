@@ -31,7 +31,7 @@ dns_port=<your-nodes-dns-port>
 6. Validate function of dns_ipcheck.py
 ```
 sudo /usr/sbin/ufw allow proto tcp from 192.168.68.101 to any port 6000 comment "<your-nodes-dns-address>"
-sudo ./dns_ipcheck.bash
+sudo ./dns_ipcheck.py
 cat dns_<your-nodes-dns-address>*
 ```
 
