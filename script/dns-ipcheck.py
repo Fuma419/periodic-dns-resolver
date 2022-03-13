@@ -6,9 +6,9 @@ declare -A dns_address
 ###############################################
 
 #dns_address[your-node1-location]=<your-nodes-dns-address>
-#dns_address[your-node1-location]=<your-nodes-dns-address>
-#dns_address[your-node1-location]=<your-nodes-dns-address>
-#dns_address[your-node1-location]=<your-nodes-dns-address>
+#dns_address[your-node2-location]=<your-nodes-dns-address>
+#dns_address[your-node3-location]=<your-nodes-dns-address>
+#dns_address[your-node4-location]=<your-nodes-dns-address>
 
 dns_port=6000
 
