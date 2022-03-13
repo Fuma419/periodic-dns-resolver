@@ -1,0 +1,12 @@
+# /etc/systemd/system/simple-cardano-failover.service
+
+[Unit]
+Description=Simple Cardano Failover Service
+Wants=dns_ipcheck.timer
+
+[Service]
+Type=oneshot
+ExecStart=/opt/cardano/cnode/scripts/dns_ipcheck.py
+
+[Install]
+WantedBy=multi-user.target
