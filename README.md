@@ -18,8 +18,10 @@ cd /opt/cardano/cnode/scripts
 3. Download the files and make them executeable
 ```
 wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/dns-ipcheck.sh
+wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/tellegram_allert.sh
 
-chmod +x dns-ipcheck.sh
+sudo chmod +x dns-ipcheck.sh
+sudo chmod +x tellegram_allert.sh
 ```
 
 4. Customize the variables in dns-ipcheck.sh
@@ -73,4 +75,4 @@ sudo systemctl start dns-ipcheck.service
 sudo systemctl enable dns-ipcheck.timer
 sudo systemctl start dns-ipcheck.timer
 
-systemctl daemon-reload
+sudo systemctl daemon-reload
