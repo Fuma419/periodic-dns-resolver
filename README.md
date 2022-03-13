@@ -17,42 +17,42 @@ cd /opt/cardano/cnode/scripts
 ```
 3. Download the files and make them executeable
 ```
-wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns_ipcheck.py
+wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.py
 
-chmod +x dns_ipcheck.py
+chmod +x dns-ipcheck.py
 ```
 
-4. Customize the variables in dns_ipcheck.py
+4. Customize the variables in dns-ipcheck.py
 ```
 dns_address[your-node1-location]=<your-nodes-dns-address>
 dns_port=<your-nodes-dns-port>
 ```
 
-6. Validate function of dns_ipcheck.py
+6. Validate function of dns-ipcheck.py
 ```
 sudo /usr/sbin/ufw allow proto tcp from 192.168.68.101 to any port 6000 comment "<your-nodes-dns-address>"
-sudo ./dns_ipcheck.py
+sudo ./dns-ipcheck.py
 cat dns_<your-nodes-dns-address>*
 ```
 
 7. Create a Service which calls the script every minute
 ```
 cd /etc/systemd/system
-sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns_ipcheck.service
-sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns_ipcheck.timer
+sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns-ipcheck.service
+sudo wget https://raw.githubusercontent.com/Fuma419/dns_firewall_servicer/main/service/dns-ipcheck.timer
 ```
-If you customized the paths you need to change them in dns_ipcheck.service as well
+If you customized the paths you need to change them in dns-ipcheck.service as well
 Then enable the Service
 ```
-sudo systemctl enable dns_ipcheck.service
-sudo systemctl start dns_ipcheck.service
+sudo systemctl enable dns-ipcheck.service
+sudo systemctl start dns-ipcheck.service
 
-sudo systemctl enable dns_ipcheck.timer
-sudo systemctl start dns_ipcheck.timer
+sudo systemctl enable dns-ipcheck.timer
+sudo systemctl start dns-ipcheck.timer
 ```
 Check if the service is ACTIVE
 ```
-sudo systemctl status dns_ipcheck.service
+sudo systemctl status dns-ipcheck.service
 ```
 
 8. Final check
@@ -62,13 +62,15 @@ sudo systemctl status dns_ipcheck.service
 9. Debugging
 To see what happens you can take a look on the Logs of crontab
 ```
-sudo journalctl -u dns_ipcheck -b
+sudo journalctl -u dns-ipcheck -b
 ```
 
 10. Enable the failover service on STANDBY
 ```
-sudo systemctl enable dns_ipcheck.service
-sudo systemctl start dns_ipcheck.service
+sudo systemctl enable dns-ipcheck.service
+sudo systemctl start dns-ipcheck.service
 
-sudo systemctl enable dns_ipcheck.timer
-sudo systemctl start dns_ipcheck.timer
+sudo systemctl enable dns-ipcheck.timer
+sudo systemctl start dns-ipcheck.timer
+
+systemctl daemon-reload

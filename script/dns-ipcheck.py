@@ -34,6 +34,6 @@ do
             /usr/sbin/ufw delete allow proto tcp from $old_ip to any port $dns_port
         fi
         /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
-        echo "ip updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r') >> dns_$i.log
+        echo "ip updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
     fi
 done
