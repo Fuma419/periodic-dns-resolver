@@ -1,0 +1,12 @@
+# /etc/systemd/system/dns-ipcheck.service
+
+[Unit]
+Description=DNS firewall servicer
+Wants=dns-ipcheck.timer
+
+[Service]
+Type=oneshot
+ExecStart=/opt/cardano/cnode/scripts/dns-ipcheck.py
+
+[Install]
+WantedBy=multi-user.target
