@@ -17,7 +17,7 @@ cd /opt/cardano/cnode/scripts
 ```
 3. Download the files and make them executeable
 ```
-wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/a967e5fcf2b4fe8638c8e5dc927503311ef4eceb/script/dns-ipcheck.sh
+wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/dns-ipcheck.sh
 
 chmod +x dns-ipcheck.sh
 ```
