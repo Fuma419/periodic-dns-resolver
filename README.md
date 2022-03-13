@@ -1,4 +1,4 @@
-# dns_firewall_servicer
+# Periodic DNS resolver
 a system enabled service to periodically update ufw rules based on one or many dns address's ip resolution
 ## Disclaimer
 There is no warranty for the function of this script. Use it at your own risk. Validate proper function.
