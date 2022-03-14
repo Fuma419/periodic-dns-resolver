@@ -6,7 +6,7 @@
 ###############################################
 
 PASSIVE_MODE="true"
-
+SCRIPT_PATH=/opt/cardano/cnode/scripts
 declare -A dns_address
 
 dns_address[your-node1-location]=google.com
@@ -36,20 +36,20 @@ do
     if [ "$new_ip" = "$old_ip" ] ; then
         echo $i ip check: $(date '+%B %d %Y %r')
         if [ $PASSIVE_MODE == "true" ] ; then
-           ./tellegram_allert.sh "Passive mode"
+            $SCRIPT_PATH/tellegram_allert.sh "Passive mode"
         else
-            ./tellegram_allert.sh "Active mode"
+            $SCRIPT_PATH/tellegram_allert.sh "Active mode"
         fi
     else
         if [ -n "$old_ip" ] ; then
             /usr/sbin/ufw delete allow proto tcp from $old_ip to any port $dns_port
         fi
         if [ $PASSIVE_MODE == "true" ] ; then
-            ./tellegram_allert.sh "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!"
+            $SCRIPT_PATH/tellegram_allert.sh "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!"
         else
-            ./tellegram_allert.sh "ip address change detected at $i! Performing ufw update now!"
+            $SCRIPT_PATH/tellegram_allert.sh "ip address change detected at $i! Performing ufw update now!"
             /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
-            ./tellegram_allert.sh "ufw changed from $old_ip to $new_ip"
+            $SCRIPT_PATH/tellegram_allert.sh "ufw changed from $old_ip to $new_ip"
             echo "ip updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         fi
     fi
