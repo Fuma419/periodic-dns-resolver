@@ -21,7 +21,9 @@ dns_port=6000
 ###############################################
 # Do not modify bellow this line
 ###############################################
-
+if [ -n "$1" ] && [ "$1" == "-f" ] ; then
+    PASSIVE_MODE="false"
+fi
 for i in "${dns_address[@]}"
 do
    : 
@@ -41,6 +43,7 @@ do
         fi
         if [ $PASSIVE_MODE == "true" ] ; then
             $SCRIPT_PATH/tellegram_allert.sh "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!"
+            echo "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!": $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         else
             $SCRIPT_PATH/tellegram_allert.sh "ip address change detected at $i! Performing ufw update now!"
             /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
