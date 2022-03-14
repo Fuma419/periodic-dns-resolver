@@ -45,9 +45,8 @@ do
             $SCRIPT_PATH/tellegram_allert.sh "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!"
             echo "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!": $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         else
-            $SCRIPT_PATH/tellegram_allert.sh "ip address change detected at $i! Performing ufw update now!"
+            $SCRIPT_PATH/tellegram_allert.sh "ip address change detected at $i! **Updating firewall** Previous IP: $old_ip -> New IP: $new_ip"
             /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
-            $SCRIPT_PATH/tellegram_allert.sh "ufw changed from $old_ip to $new_ip"
             echo "ip updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         fi
     fi
