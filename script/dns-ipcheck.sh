@@ -38,14 +38,14 @@ do
     if [ "$new_ip" = "$old_ip" ] ; then
         echo $i ip check: $(date '+%B %d %Y %r')
     else
-        if [ -n "$old_ip" ] ; then
-            /usr/sbin/ufw delete allow proto tcp from $old_ip to any port $dns_port
-        fi
         if [ $PASSIVE_MODE == "true" ] ; then
             $SCRIPT_PATH/tellegram_allert.sh "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!"
             echo "ip address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Update firewall asap!": $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         else
             $SCRIPT_PATH/tellegram_allert.sh "ip address change detected at $i! **Updating firewall** Previous IP: $old_ip -> New IP: $new_ip"
+            if [ -n "$old_ip" ] ; then
+                /usr/sbin/ufw delete allow proto tcp from $old_ip to any port $dns_port
+            fi
             /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
             echo "ip updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
         fi
