@@ -27,10 +27,10 @@ cd /opt/cardano/cnode/scripts
 3. Download the files and make them executable
 ```
 wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/dns-ipcheck.sh
-wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/tellegram_allert.sh
+wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/telegram-allert.sh
 
 sudo chmod +x dns-ipcheck.sh
-sudo chmod +x tellegram_allert.sh
+sudo chmod +x telegram-allert.sh
 ```
 4. Customize the variables in dns-ipcheck.sh
 ```
@@ -39,7 +39,7 @@ sudo nano dns-ipcheck.sh
         dns_address[your-node1-location]=<your-nodes-dns-address>
         dns_port=<your-nodes-dns-port>
 
-5. Customize the variables in tellegram_allert.sh (optional)
+5. Customize the variables in telegram-allert.sh (optional)
 ```
 sudo nano telegram_allert.sh
 ```
@@ -65,7 +65,7 @@ sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/s
 sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/service/dns-ipcheck.timer
 ```
 
-9. Then enable the service and check status
+9. Enable the service and check status
 ```
 sudo systemctl enable dns-ipcheck.service
 sudo systemctl start dns-ipcheck.service
@@ -86,7 +86,7 @@ sudo systemctl status dns-ipcheck
 ```
 sudo /usr/sbin/ufw allow proto tcp from 192.168.68.100 to any port 6000 comment <your-nodes-dns-address>
 ```
-3. Wait until the tool is called and verify that is has detected that change and was able to send the Telegram notification. Following the instruction to update your ufw rules. Then Verify input connections are available in gliveView
+3. Wait until the tool is called and verify that is has detected that change and was able to send the Telegram notification. Following the instruction to update your ufw rules. Then verify input connections are available in gliveView
 ```
 cd /opt/cardano/cnode/scripts/
 ./gLiveView.sh
@@ -100,7 +100,7 @@ sudo systemctl status dns-ipcheck
 sudo journalctl -u dns-ipcheck -b
 ```
 
-12. This tool sucks and I want it gone
+12. This tool sucks and I want it gone!
 ```
 sudo systemctl stop dns-ipcheck.timer
 sudo systemctl disable dns-ipcheck.timer
@@ -110,6 +110,6 @@ sudo systemctl disable dns-ipcheck.service
 
 sudo rm /etc/systemd/system/dns-*
 sudo rm /opt/cardano/cnode/scripts/dns-*
-sudo rm /opt/cardano/cnode/scripts/tellegram_allert.sh
+sudo rm /opt/cardano/cnode/scripts/telegram-allert.sh
 sudo rm /opt/cardano/cnode/logs/dns-ipcheck.log
 
