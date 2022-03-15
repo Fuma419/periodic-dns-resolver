@@ -43,8 +43,8 @@ sudo nano tellegram_allert.sh
 
 6. Validate function of dns-ipcheck.sh (if telegram is configured you should recieve a bot message as well)
 ```
-sudo ./opt/cardano/cnode/scripts/dns-ipcheck.sh
-cat /opt/cardano/cnode/logs/dns-ipcheck.log
+sudo ./dns-ipcheck.sh
+cat ../logs/dns-ipcheck.log
 ```
 
 7. Create a Service which calls the script every 15 minutes (periodicity adjustment in dns-ipcheck.timer)
