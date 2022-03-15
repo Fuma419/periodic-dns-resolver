@@ -39,16 +39,16 @@ do
     # New setup likely: complete setup with "sudo ./dns-ipcheck.sh -f"
     elif [ -z "$old_ip" ] && [ $PASSIVE_MODE == "true" ]; then
         $SCRIPT_PATH/tellegram_allert.sh "Could not locate $i in firewall: Consider adding ufw rule with <sudo ./dns-ipcheck.sh -f> $(date '+%B %d %Y %r')"
-        echo "Could not locate $i in firewall: Consider adding with <sudo ./dns-ipcheck.sh -f>:" $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
+        echo "Could not locate $i in firewall: Consider adding with <sudo ./dns-ipcheck.sh -f>:" $(date '+%B %d %Y %r') >> /opt/cardano/cnode/logs/dns-ipcheck.log
     # Could not resolve DNS for some reason. Likely a connction issue.
     elif [ -z "$new_ip" ] ; then
         $SCRIPT_PATH/tellegram_allert.sh "$i was unreachable at: $old_ip. Awaiting connectivity. $(date '+%B %d %Y %r')"
-        echo "$i was unreachable at: $old_ip. Awaiting connectivity.": $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
+        echo "$i was unreachable at: $old_ip. Awaiting connectivity.": $(date '+%B %d %Y %r') >> /opt/cardano/cnode/logs/dns-ipcheck.log
     # No matching firewall rule found. Lets add it now.
     elif [ -z "$old_ip" ] && [ $PASSIVE_MODE != "true" ]; then
         /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
         $SCRIPT_PATH/tellegram_allert.sh "Could not locate $new_ip in firewall for $i: **Updating firewall** $(date '+%B %d %Y %r')"
-        echo "Could not locate $new_ip in firewall for $i: **Updating firewall**" $(date '+%B %d %Y %r') >> /opt/cardano/cnode/scripts/dns-ipcheck.log
+        echo "Could not locate $new_ip in firewall for $i: **Updating firewall**" $(date '+%B %d %Y %r') >> /opt/cardano/cnode/logs/dns-ipcheck.log
     else
     # Detected IP address change. Taking action and/or notifiy operator.
         if [ $PASSIVE_MODE == "true" ] ; then
