@@ -1,7 +1,8 @@
 # Periodic DNS resolver
-A system service to periodically check a dns address's ip resolution against the the current firewall rules.
+
 ## Disclaimer
-There is no warranty for the function of this script. Use it at your own risk. Validate proper function.
+There is no warranty for the function of this script. Use it at your own risk and validate proper function.
+
 ## How it works?
 This tool will periodically (default periodicity is 15 min) check a DNS's ip address and determine if it has changed. This is an infrequent but inevitable issue when hosting a server with an ISP that does not offer a static public IP address (most residential internet services), and will cause unexpected connectivity issues between nodes.
 
