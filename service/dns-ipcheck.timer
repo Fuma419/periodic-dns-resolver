@@ -7,7 +7,7 @@ Requires=dns-ipcheck.service
 
 [Timer]
 Unit=dns-ipcheck.service
-OnCalendar=*:0/15
+OnCalendar=*:0/5
 
 AccuracySec=1
 
