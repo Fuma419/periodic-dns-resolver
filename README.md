@@ -16,15 +16,24 @@ In Active Mode the tool will automatically update the firewall rules when a DNS'
     - A core (BP) Cardano node built with Cntools (https://cardano-community.github.io/guild-operators/)
     - UFW - Uncomplicated Firewall enabled (Included in Ubuntu 20.04 LTS)
     - Manual removal of existing node ufw entries that you would like this tool to manage (These will be added back during setup)
-    - A valid Bot Token and Group ID from a Telegram Bot (recommended)(https://core.telegram.org/bots/api)
 ```
+2. Use BotFather on your telegram account to create a Telegram Bot Token (optional but recomended)
+```
+https://t.me/botfather
 
+example: 5137992803:AAHUtQzdUbyS8LXDFftFYJ4c-J-n052OyRg
+```
+3. Use this website (with your token) to aquire your chat ID
+```
+https://api.telegram.org/bot<your bot token>/getUpdates
+```
+        example -> "my_chat_member":{"chat":{"id":-937568173 <--- your chat ID>
 
-2. On the cnode navigate to the folder which will contain the scripts
+4. On the cnode navigate to the folder which will contain the scripts
 ```
 cd /opt/cardano/cnode/scripts
 ```
-3. Download the files and make them executable
+5. Download the files and make them executable
 ```
 wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/dns-ipcheck.sh
 wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script/telegram-allert.sh
@@ -32,40 +41,40 @@ wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/script
 sudo chmod +x dns-ipcheck.sh
 sudo chmod +x telegram-allert.sh
 ```
-4. Customize the variables in dns-ipcheck.sh
+6. Customize the variables in dns-ipcheck.sh
 ```
 sudo nano dns-ipcheck.sh
 ```
         dns_address[your-node1-location]=<your-nodes-dns-address>
         dns_port=<your-nodes-dns-port>
 
-5. Customize the variables in telegram-allert.sh (optional)
+7. Customize the variables in telegram-allert.sh (optional)
 ```
 sudo nano telegram_allert.sh
 ```
         #GROUP_ID=<group_id>
         #BOT_TOKEN=<bot_token>
 
-6. Validate function of dns-ipcheck.sh (if telegram is configured you should receive a bot message as well)
+8. Validate function of dns-ipcheck.sh (if telegram is configured you should receive a bot message as well)
 ```
 sudo ./dns-ipcheck.sh
 cat ../logs/dns-ipcheck.log
 ```
 
-7. Update the existing firewall rules to allow incoming peer. Verify rule creation.
+9. Update the existing firewall rules to allow incoming peer. Verify rule creation.
 ```
 sudo ./dns-ipcheck.sh -f
 sudo ufw status
 ```
 
-8. Create a Service which calls the script every 5 minutes (periodicity adjustment in dns-ipcheck.timer)
+10. Create a Service which calls the script every 5 minutes (periodicity adjustment in dns-ipcheck.timer)
 ```
 cd /etc/systemd/system
 sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/service/dns-ipcheck.service
 sudo wget https://raw.githubusercontent.com/Fuma419/periodic-dns-resolver/main/service/dns-ipcheck.timer
 ```
 
-9. Enable the service and check status
+11. Enable the service and check status
 ```
 sudo systemctl enable dns-ipcheck.service
 sudo systemctl start dns-ipcheck.service
@@ -76,9 +85,7 @@ sudo systemctl start dns-ipcheck.timer
 sudo systemctl status dns-ipcheck
 ```
 
-10. Test and Verify Functionality
-
-- The best test would be to request a new public IP address from your ISP. This may be as simple as powering off your modem for 60 seconds and powering back on, or may require a phone call with your ISP's technical support.
+12. Test and Verify Functionality
 
 - An easy but incomplete test would be to:
 1. Remove the ufw entries created in step 7.
@@ -86,13 +93,14 @@ sudo systemctl status dns-ipcheck
 ```
 sudo /usr/sbin/ufw allow proto tcp from 192.168.68.100 to any port 6000 comment <your-nodes-dns-address>
 ```
-3. Wait until the tool is called and verify that is has detected that change and was able to send the Telegram notification. Following the instruction to update your ufw rules. Then verify input connections are available in gliveView
+3. Wait until the tool is called and verify that it has detected that change and was able to send the Telegram notification. Following the instruction to update your ufw rules. Then verify input connections are available in gliveView
 ```
 cd /opt/cardano/cnode/scripts/
 ./gLiveView.sh
 ```
+- The best test would be to request a new public IP address from your ISP. This may be as simple as powering off your modem for 60 seconds and powering back on, or may require a phone call with your ISP's technical support. Then verify input connections are available in gliveView
 
-11. Debugging
+13. Debugging
 ```
 sudo systemctl status dns-ipcheck
 ```
@@ -100,7 +108,7 @@ sudo systemctl status dns-ipcheck
 sudo journalctl -u dns-ipcheck -b
 ```
 
-12. This tool sucks and I want it gone!
+14. This tool sucks and I want it gone!
 ```
 sudo systemctl stop dns-ipcheck.timer
 sudo systemctl disable dns-ipcheck.timer
