@@ -5,7 +5,7 @@ There is no warranty for the function of this script. Use it at your own risk. V
 ## How it works?
 This tool will periodically (default periodicity is 5 min) check a DNS's ip address and determine if it has changed. This is an infrequent but inevitable issue when hosting a server with an ISP that does not offer a static public IP address (most residential internet services), and will cause unexpected connectivity failures between nodes.
 
-By default this tool will run in Passive Mode, and will NOT automatically update your firewall settings when a DNS's corresponding IP address has changed. This tools will however send a notification to a telegram bot notifying the operator that an IP address change has been detected, as well as document the change in a log file (dns-ipcheck.log), and prompt the user to force the Firewall change with CLI command "sudo ./dns-ipcheck.sh -f". 
+By default this tool will run in Passive Mode, and will NOT automatically update your firewall settings when a DNS's corresponding IP address has changed. This tools will however send a notification to a telegram bot notifying the operator that an IP address change has been detected and prompt the user to force the Firewall change with CLI command "sudo ./dns-ipcheck.sh -f". 
 
 In Active Mode the tool will automatically update the firewall rules when a DNS's corresponding IP address is changed. Although this feature will maximize node connectivity it has inherent security risks, as you are allowing an external dependency to dictate an internal firewall rule change. This is an advanced feature and it is highly recommended that the user carefully consider, understand, and mitigate the risks if you chose to run this tool in active mode. Some recommended measures include storing all cold keys in an air-gapped machine, running a standby core node in a failover configuration, not storing any wallet keys (even encrypted keys) on the node, abstaining from submitting any transactions from this node (pool updates, paper wallet tx, HW wallet tx). While these are all recommended security measures regardless of this tools installation, it must be stated that Active mode is an advanced feature and is not enabled by default for good reason!
 
@@ -58,7 +58,6 @@ sudo nano telegram_allert.sh
 8. Validate function of dns-ipcheck.sh (if telegram is configured you should receive a bot message as well)
 ```
 sudo ./dns-ipcheck.sh
-cat ../logs/dns-ipcheck.log
 ```
 
 9. Update the existing firewall rules to allow incoming peer. Verify rule creation.
@@ -119,5 +118,4 @@ sudo systemctl disable dns-ipcheck.service
 sudo rm /etc/systemd/system/dns-*
 sudo rm /opt/cardano/cnode/scripts/dns-*
 sudo rm /opt/cardano/cnode/scripts/telegram-allert.sh
-sudo rm /opt/cardano/cnode/logs/dns-ipcheck.log
 
