@@ -1,5 +1,5 @@
 # /etc/systemd/system/dns-ipcheck.timer
-# Modify the OnCalendar to reflect your schedule - default is every 10 minute
+# Modify the OnCalendar to reflect your schedule - default is every 5 minute
 
 [Unit]
 Description=timer for firewall servicer
@@ -8,7 +8,7 @@ Requires=dns-ipcheck.service
 [Timer]
 Unit=dns-ipcheck.service
 OnCalendar=*:0/5
-
+FixedRandomDelay=30
 AccuracySec=1
 
 [Install]
