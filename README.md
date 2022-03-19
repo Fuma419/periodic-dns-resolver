@@ -104,7 +104,7 @@ cd /opt/cardano/cnode/scripts/
 sudo systemctl status dns-ipcheck
 ```
 ```
-sudo journalctl -u dns-ipcheck -b
+sudo journalctl -e -f -u dns-ipcheck 
 ```
 
 14. This tool sucks and I want it gone!
