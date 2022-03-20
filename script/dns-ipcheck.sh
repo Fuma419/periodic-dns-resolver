@@ -32,6 +32,7 @@ do
 
     new_ip=$(dig +short $i)
     old_ip=$(/usr/sbin/ufw status | grep $i | head -n1 | tr -s ' ' | cut -f3 -d ' ')
+    check_ip=${new_ip::1}
 
     # Healthy condition: do nothing
     if [ "$new_ip" == "$old_ip" ] ; then
@@ -48,12 +49,8 @@ do
         $SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0A$i has no ufw rule:%0AAdding $new_ip ufw rule: %0A**Updating firewall** %0A$(date '+%B %d %Y %r')"
         echo "Could not locate $new_ip in firewall for $i: **Updating firewall**" $(date '+%B %d %Y %r')
         
-    # Could not resolve DNS for some reason. Likely a connction issue.
-    elif [ -z "$new_ip" ] -o [grep -c "NXDOMAIN" $new_ip] -o [grep -c ";;" $new_ip]; then
-        $SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0A$i was unreachable at: %0A$old_ip %0AAwaiting connectivity. %0A$(date '+%B %d %Y %r') %0AResponse: $new_ip"
-        echo "$i was unreachable at: $old_ip. Awaiting connectivity.": $(date '+%B %d %Y %r')
-    else
     # Detected IP address change. Taking action and/or notifiy operator.
+    elif [[ $check_ip =~ ^[[:digit:]]+$ ]]; then
         if [ $PASSIVE_MODE == "true" ] ; then
             $SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0AIP address change detected!%0A$i: %0APrevious IP:$old_ip%0ANew IP:$new_ip%0A %0AFirewall NOT updated! %0AVerify new IP then add ufw rule with <sudo ./dns-ipcheck.sh -f>: %0A$(date '+%B %d %Y %r')"
             echo "IP address change detected on $i from $old_ip to $new_ip! Firewall NOT updated. Verify new IP and add ufw rule with  <sudo ./dns-ipcheck.sh -f>:" $(date '+%B %d %Y %r')
@@ -63,5 +60,10 @@ do
             /usr/sbin/ufw allow proto tcp from $new_ip to any port $dns_port comment $i
             echo "IP updated from $old_ip to $new_ip: "$(date '+%B %d %Y %r')
         fi
+    
+    # Could not resolve DNS for some reason. Likely a connction issue.
+    else
+        $SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0A$i was unreachable at: %0A$old_ip %0AAwaiting connectivity. %0A$(date '+%B %d %Y %r') %0AResponse: $new_ip"
+        echo "$i was unreachable at: $old_ip. Awaiting connectivity.": $(date '+%B %d %Y %r') "Response: $new_ip:$check_ip"
     fi
 done
