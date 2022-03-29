@@ -99,7 +99,7 @@ sudo /usr/sbin/ufw allow proto tcp from 192.168.68.100 to any port 6000 comment 
 cd /opt/cardano/cnode/scripts/
 ./gLiveView.sh
 ```
-- The best test would be to request a new public IP address from your ISP. This may be as simple as powering off your modem for 60 seconds and powering back on, or may require a phone call with your ISP's technical support. Then verify input connections are available in gliveView
+- The best test would be to request a new public IP address from your ISP. How and if this can be triggered will depend on your ISP and type of service. 
 
 13. Debugging (This log is very useful in for determining the reliability of your 
 DNS service!)
