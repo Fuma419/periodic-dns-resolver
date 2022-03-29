@@ -92,7 +92,7 @@ sudo systemctl status dns-ipcheck
 1. Remove the ufw entries created in step 7.
 2. Add a dummy IP address to your rule set that is tagged with the DNS address configured in step 4
 ```
-sudo /usr/sbin/ufw allow proto tcp from 192.168.68.100 to any port 6000 comment <your-nodes-dns-address>
+sudo ufw allow proto tcp from 192.168.68.100 to any port 6000 comment <your-nodes-dns-address>
 ```
 3. Wait until the tool is called and verify that it has detected that change and was able to send the Telegram notification. Following the instruction to update your ufw rules. Then verify input connections are available in gliveView
 ```
