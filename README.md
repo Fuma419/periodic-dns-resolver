@@ -1,27 +1,28 @@
 # Periodic DNS resolver:
-A system service to periodically check a dns address's ip resolution against the the current firewall rules.
+A system service to periodically check a dns address's ip resolution against the the current firewall rules in order to detect a public IP address change and monitor/log the availabiliy of a DNS server. 
 ## Problem Statement:
-If an SPO wishes to self-host their nodes, they may encounter an issue when an ISP only provides dynamic public IP address options to redidential service, or the cost of a static IP is of concern. This issue is partially mitigated by attaching their IP address to a DNS/DDNS address, except that Ubuntu does not support DNS addresses in the (iptables/ufw) firewall.
+If an SPO wishes to self-host their nodes, they may encounter an issue when an ISP only provides dynamic public IP address options to redidential service, or the cost of a static IP is of concern. This issue is partially mitigated by attaching their IP address to a DNS/DDNS address, except that iptables does not support DNS addresses in the it's firewall.
 ## Implemented Solution:
-This tool will periodically (default periodicity is 5 min) check a DNS's ip address and compare it against existing ufw firewall rules. 
+This tool will periodically (default periodicity is ~5 min) check a DNS's ip address and compare it against existing ufw firewall rules on a firewalled node connection (likely a Core Node).
 
-By default this tool will run in *Passive Mode*, and will NOT automatically update your firewall settings when a DNS's corresponding IP address has changed. This tools will however send a notification to a telegram bot notifying the operator that an IP address change has been detected and prompt the user to force the Firewall change with CLI command "sudo ./dns-ipcheck.sh -f". 
+By default this tool will run in *Passive Mode*, and will NOT automatically update your firewall settings when a DNS's corresponding IP address has changed. This tools will however send a notification to a telegram bot notifying the operator that an IP address change has been detected and prompt the user to force the Firewall change with CLI command "sudo ./dns-ipcheck.sh -f".
 
 In *Active Mode* the tool will automatically update the firewall rules when a DNS's corresponding IP address is changed. Although this feature will maximize node connectivity it has inherent security risks, as you are allowing an external dependency to dictate an internal firewall rule change. This is an advanced feature and it is highly recommended that the user carefully consider, understand, and mitigate the risks if you chose to run this tool in *Active Mode*. Some recommended measures include storing all cold keys in an air-gapped machine, running a standby core node in a failover configuration, not storing any wallet keys (even encrypted keys) on the node, abstain from submitting any transactions from this node (pool updates, paper wallet tx, HW wallet tx). While these are all recommended security measures regardless of this tools installation, it must be stated that *Active Mode* is an advanced feature and is not enabled by default for good reason!
+
 ## Disclaimer:
 There is no warranty for the function of this script. Use it at your own risk. Validate proper function.
+
 ## Setup
 
 1. Preconditions:
 ```
-    - A core (BP) Cardano node built with Cntools (https://cardano-community.github.io/guild-operators/)
+    - A Cardano node built with Cntools (https://cardano-community.github.io/guild-operators/), although with a few small path changes it could be used on any deployent.
     - UFW - Uncomplicated Firewall enabled (Included in Ubuntu 20.04 LTS)
     - Manual removal of existing node ufw entries that you would like this tool to manage (These will be added back during setup)
 ```
 2. Use BotFather on your telegram account to create a Telegram Bot Token (optional but recomended)
+[https://t.me/botfather](https://t.me/botfather/).
 ```
-https://t.me/botfather
-
 example: 5137992803:AAHUtQzdUbyS8LXDFftFYJ4c-J-n052OyRg
 ```
 3. Use this website (with your token from step 2) to aquire your chat ID
@@ -100,7 +101,8 @@ cd /opt/cardano/cnode/scripts/
 ```
 - The best test would be to request a new public IP address from your ISP. This may be as simple as powering off your modem for 60 seconds and powering back on, or may require a phone call with your ISP's technical support. Then verify input connections are available in gliveView
 
-13. Debugging
+13. Debugging (This log is very useful in for determining the reliability of your 
+DNS service!)
 ```
 sudo systemctl status dns-ipcheck
 ```

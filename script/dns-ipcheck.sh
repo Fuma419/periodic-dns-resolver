@@ -1,21 +1,19 @@
 #!/bin/bash
-declare -A dns_address
-
-####################################################
-# uncomment and update with DNS address(es) to allow
-####################################################
-NODE_ID="Mainnet Node"
-PASSIVE_MODE="true"
+NODE_ID="Your Cnode"    # Name used in Alerts
+PASSIVE_MODE="true"     # 
 SCRIPT_PATH=/opt/cardano/cnode/scripts
 
 
+declare -A dns_address
+###############################################
+# uncomment and update with DNS addresses to allow
+###############################################
 dns_address[your-node1-location]=https://www.w3.org/
 #dns_address[your-node2-location]=<your-nodes-dns-address>
 #dns_address[your-node3-location]=<your-nodes-dns-address>
 #dns_address[your-node4-location]=<your-nodes-dns-address>
 
 dns_port=6000
-
 ###############################################
 # Do not modify bellow this line
 ###############################################
@@ -63,7 +61,8 @@ do
     
     # Could not resolve DNS for some reason. Likely a connction issue.
     else
-        $SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0A$i was unreachable at: %0A$old_ip %0AAwaiting connectivity. %0A$(date '+%B %d %Y %r') %0AResponse: $new_ip"
+        # Optional: enable this alert to monitor DDNS service for problems.
+        #$SCRIPT_PATH/telegram-allert.sh "$NODE_ID Alert!%0A$i was unreachable at: %0A$old_ip %0AAwaiting connectivity. %0A$(date '+%B %d %Y %r') %0AResponse: $new_ip"
         echo "$i was unreachable at: $old_ip. Awaiting connectivity.": $(date '+%B %d %Y %r') "Response: $new_ip:$check_ip"
     fi
 done
