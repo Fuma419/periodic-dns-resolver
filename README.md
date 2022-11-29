@@ -1,7 +1,7 @@
 # Periodic DNS resolver:
 A system service to periodically check a dns address's ip resolution against the the current firewall rules in order to detect a public IP address change as well as monitor/log the availabiliy of a DNS server. 
 ## Problem Statement:
-If an SPO wishes to self-host their nodes, they may encounter an issue when an ISP only provides dynamic public IP address options to redidential service, or the cost of a static IP is of concern. This issue is partially mitigated by attaching their IP address to a DNS/DDNS address, except that iptables does not support DNS addresses in the it's firewall.
+If an SPO wishes to self-host their nodes, they may encounter an issue when an ISP only provides dynamic public IP address options to residential service, or the cost of a static IP is of concern. This issue is partially mitigated by attaching their IP address to a DNS/DDNS address, except that iptables does not support DNS addresses in the it's firewall.
 ## Implemented Solution:
 This tool will periodically (default periodicity is ~5 min) check a DNS's ip address and compare it against existing ufw firewall rules on a firewalled node connection (likely a Core Node).
 
