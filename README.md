@@ -124,6 +124,5 @@ sudo systemctl disable dns-ipcheck.service
 sudo rm /etc/systemd/system/dns-*
 sudo rm /opt/cardano/cnode/scripts/dns-*
 sudo rm /opt/cardano/cnode/scripts/telegram-allert.sh
-
-![alt text](https://github.com/Fuma419/periodic-dns-resolver/blob/81601616aa6c4f43aae8c6be1913eb0b1103ea1e/Screenshot%202023-01-14%20at%2011.28.18%20PM.png)
+```
 
