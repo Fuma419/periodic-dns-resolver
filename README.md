@@ -1,6 +1,6 @@
 # Periodic DNS resolver:
 
-### Presented by the Hodler Coalition: https://www.hodlerstaking.com/
+### Presented by the Hodler Coalition [HODLR]: https://www.hodlerstaking.com/
 
 A system service to periodically check a dns address's ip resolution against the the current firewall rules in order to detect a public IP address change as well as monitor/log the availabiliy of a DNS server. 
 ## Problem Statement:
