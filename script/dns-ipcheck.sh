@@ -1,6 +1,6 @@
 #!/bin/bash
-NODE_ID="Your Cnode"    # Name used in Alerts
-PASSIVE_MODE="true"     # 
+NODE_ID="Your Cnode"    # Name used in Telegram Alert
+PASSIVE_MODE="true"     # Disable to allow automatic firewall updates
 SCRIPT_PATH=/opt/cardano/cnode/scripts
 
 
